@@ -62,8 +62,8 @@ RUN python3.7 -m pip install --upgrade pip && \
     python3.7 -m pip install fsspec && \
     python3.7 -m pip install boto3 && \
     python3.7 -m pip install psycopg2 && \
-    python3.7 -m pip install pyarrow && \
-    python3.7 -m pip install awslambdaric
+    python3.7 -m pip install tensorflow && \
+    python3.7 -m pip install pyarrow
 
 # Clean up
 RUN yum update -y \
@@ -78,7 +78,11 @@ COPY depend/* ${DEPENDENCY_DIR}
 RUN mkdir -p ${FUNCTION_DIR}
 COPY src/* ${FUNCTION_DIR}
 
-
+# make ~/.aws directory and copy config and credential files into it
+# this is required in order to use boto3 to access files from s3
+RUN mkdir -p ~/.aws \
+    && cp /depend/config ~/.aws/config \
+    && cp /depend/credentials ~/.aws/credentials
 
 FROM amazonlinux:2.0.20210219.0
 
