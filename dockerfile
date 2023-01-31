@@ -29,4 +29,5 @@ COPY ./ ${FUNCTION_DIR}
 ENV LD_LIBRARY_PATH=/usr/local/lib
 
 WORKDIR ${FUNCTION_DIR}
-ENTRYPOINT /root/anaconda3/bin/conda run -n chat_ais python3 main.py
+ENTRYPOINT bash
+# ENTRYPOINT /root/anaconda3/bin/conda run -n chat_ais python3 main.py
